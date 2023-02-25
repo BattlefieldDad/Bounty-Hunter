@@ -1,0 +1,968 @@
+<xml xmlns="https://developers.google.com/blockly/xml">
+  <variables>
+    <variable type="Global" id="DP.T-!KCfq2j7#_e@m=?">pointsPerKill</variable>
+    <variable type="Player" id="jnE8p@J*!Hhx1q[Ns2HB">killStreak</variable>
+    <variable type="Player" id="tb76fgFxj|xFI[kECrAL">Outlaw</variable>
+    <variable type="Player" id="GmDEH{2[t3E;,=/dbLE/">bountyMultiplier</variable>
+  </variables>
+  <block type="modBlock" deletable="false" x="-296" y="1691">
+    <statement name="RULES">
+      <block type="ruleBlock">
+        <mutation isOnGoingEvent="false"></mutation>
+        <field name="NAME">disbleDefaultScoring</field>
+        <field name="EVENTTYPE">OnGameModeStarted</field>
+        <statement name="ACTIONS">
+          <block type="EnableDefaultScoring">
+            <value name="VALUE-0">
+              <block type="Boolean">
+                <field name="BOOL">FALSE</field>
+              </block>
+            </value>
+            <next>
+              <block type="EnableDefaultWinCondition">
+                <value name="VALUE-0">
+                  <block type="Boolean">
+                    <field name="BOOL">FALSE</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="SetVariable">
+                    <value name="VALUE-0">
+                      <block type="variableReferenceBlock">
+                        <mutation isObjectVar="false"></mutation>
+                        <field name="OBJECTTYPE">Global</field>
+                        <field name="VAR" id="DP.T-!KCfq2j7#_e@m=?" variabletype="Global">pointsPerKill</field>
+                      </block>
+                    </value>
+                    <value name="VALUE-1">
+                      <block type="Number">
+                        <field name="NUM">10</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="SetTargetScore">
+                        <value name="VALUE-0">
+                          <block type="Number">
+                            <field name="NUM">250</field>
+                          </block>
+                        </value>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </statement>
+        <next>
+          <block type="ruleBlock">
+            <mutation isOnGoingEvent="false"></mutation>
+            <field name="NAME">resetAllOnDeploy</field>
+            <field name="EVENTTYPE">OnPlayerDeployed</field>
+            <statement name="ACTIONS">
+              <block type="SetVariable">
+                <value name="VALUE-0">
+                  <block type="variableReferenceBlock">
+                    <mutation isObjectVar="true"></mutation>
+                    <field name="OBJECTTYPE">Player</field>
+                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                    <value name="OBJECT">
+                      <block type="EventPlayer"></block>
+                    </value>
+                  </block>
+                </value>
+                <value name="VALUE-1">
+                  <block type="Number">
+                    <field name="NUM">0</field>
+                  </block>
+                </value>
+                <next>
+                  <block type="SetVariable">
+                    <value name="VALUE-0">
+                      <block type="variableReferenceBlock">
+                        <mutation isObjectVar="true"></mutation>
+                        <field name="OBJECTTYPE">Player</field>
+                        <field name="VAR" id="tb76fgFxj|xFI[kECrAL" variabletype="Player">Outlaw</field>
+                        <value name="OBJECT">
+                          <block type="EventPlayer"></block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="VALUE-1">
+                      <block type="Boolean">
+                        <field name="BOOL">FALSE</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="SetVariable">
+                        <value name="VALUE-0">
+                          <block type="variableReferenceBlock">
+                            <mutation isObjectVar="true"></mutation>
+                            <field name="OBJECTTYPE">Player</field>
+                            <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                            <value name="OBJECT">
+                              <block type="EventPlayer"></block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="VALUE-1">
+                          <block type="Number">
+                            <field name="NUM">1</field>
+                          </block>
+                        </value>
+                        <next>
+                          <block type="ClearCustomNotificationMessage">
+                            <value name="VALUE-0">
+                              <block type="CustomMessagesItem">
+                                <field name="VALUE-0">CustomMessages</field>
+                                <field name="VALUE-1">MessageText1</field>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="EventPlayer"></block>
+                            </value>
+                            <next>
+                              <block type="ClearCustomNotificationMessage">
+                                <value name="VALUE-0">
+                                  <block type="CustomMessagesItem">
+                                    <field name="VALUE-0">CustomMessages</field>
+                                    <field name="VALUE-1">MessageText2</field>
+                                  </block>
+                                </value>
+                                <value name="VALUE-1">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                                <next>
+                                  <block type="subroutineInstanceBlock">
+                                    <field name="SUBROUTINE_NAME">updatePlayerStreakMessage</field>
+                                  </block>
+                                </next>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </statement>
+            <next>
+              <block type="ruleBlock">
+                <mutation isOnGoingEvent="false"></mutation>
+                <field name="NAME">checkHVT</field>
+                <field name="EVENTTYPE">OnPlayerEarnedKill</field>
+                <statement name="CONDITIONS">
+                  <block type="conditionBlock">
+                    <value name="CONDITION">
+                      <block type="And">
+                        <value name="VALUE-0">
+                          <block type="Equals">
+                            <value name="VALUE-0">
+                              <block type="GetVariable">
+                                <value name="VALUE-0">
+                                  <block type="variableReferenceBlock">
+                                    <mutation isObjectVar="true"></mutation>
+                                    <field name="OBJECTTYPE">Player</field>
+                                    <field name="VAR" id="tb76fgFxj|xFI[kECrAL" variabletype="Player">Outlaw</field>
+                                    <value name="OBJECT">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Boolean">
+                                <field name="BOOL">FALSE</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="VALUE-1">
+                          <block type="GreaterThanEqualTo">
+                            <value name="VALUE-0">
+                              <block type="GetVariable">
+                                <value name="VALUE-0">
+                                  <block type="variableReferenceBlock">
+                                    <mutation isObjectVar="true"></mutation>
+                                    <field name="OBJECTTYPE">Player</field>
+                                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                    <value name="OBJECT">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">5</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </statement>
+                <statement name="ACTIONS">
+                  <block type="SetVariable">
+                    <value name="VALUE-0">
+                      <block type="variableReferenceBlock">
+                        <mutation isObjectVar="true"></mutation>
+                        <field name="OBJECTTYPE">Player</field>
+                        <field name="VAR" id="tb76fgFxj|xFI[kECrAL" variabletype="Player">Outlaw</field>
+                        <value name="OBJECT">
+                          <block type="EventPlayer"></block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="VALUE-1">
+                      <block type="Boolean">
+                        <field name="BOOL">TRUE</field>
+                      </block>
+                    </value>
+                    <next>
+                      <block type="ShowNotificationMessage">
+                        <value name="VALUE-0">
+                          <block type="Message">
+                            <value name="VALUE-0">
+                              <block type="Text">
+                                <field name="TEXT">You are now a wanted outlaw. A bounty has been placed on your head!</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <value name="VALUE-1">
+                          <block type="EventPlayer"></block>
+                        </value>
+                        <next>
+                          <block type="ShowHighlightedGameModeMessage">
+                            <value name="VALUE-0">
+                              <block type="Message">
+                                <value name="VALUE-0">
+                                  <block type="Text">
+                                    <field name="TEXT">{} is on a kill streak! A new outlaw has been identified..</field>
+                                  </block>
+                                </value>
+                                <value name="VALUE-1">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </statement>
+                <next>
+                  <block type="ruleBlock">
+                    <mutation isOnGoingEvent="false"></mutation>
+                    <field name="NAME">addToHVTPointsMultiplier</field>
+                    <field name="EVENTTYPE">OnPlayerEarnedKill</field>
+                    <statement name="CONDITIONS">
+                      <block type="conditionBlock">
+                        <value name="CONDITION">
+                          <block type="GreaterThanEqualTo">
+                            <value name="VALUE-0">
+                              <block type="GetVariable">
+                                <value name="VALUE-0">
+                                  <block type="variableReferenceBlock">
+                                    <mutation isObjectVar="true"></mutation>
+                                    <field name="OBJECTTYPE">Player</field>
+                                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                    <value name="OBJECT">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">5</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </statement>
+                    <statement name="ACTIONS">
+                      <block type="If">
+                        <mutation elseif="3"></mutation>
+                        <value name="VALUE-0">
+                          <block type="GreaterThanEqualTo">
+                            <value name="VALUE-0">
+                              <block type="GetVariable">
+                                <value name="VALUE-0">
+                                  <block type="variableReferenceBlock">
+                                    <mutation isObjectVar="true"></mutation>
+                                    <field name="OBJECTTYPE">Player</field>
+                                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                    <value name="OBJECT">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">20</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO">
+                          <block type="SetVariable">
+                            <value name="VALUE-0">
+                              <block type="variableReferenceBlock">
+                                <mutation isObjectVar="true"></mutation>
+                                <field name="OBJECTTYPE">Player</field>
+                                <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                <value name="OBJECT">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">5</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <value name="IF1">
+                          <block type="GreaterThanEqualTo">
+                            <value name="VALUE-0">
+                              <block type="GetVariable">
+                                <value name="VALUE-0">
+                                  <block type="variableReferenceBlock">
+                                    <mutation isObjectVar="true"></mutation>
+                                    <field name="OBJECTTYPE">Player</field>
+                                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                    <value name="OBJECT">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">15</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO1">
+                          <block type="SetVariable">
+                            <value name="VALUE-0">
+                              <block type="variableReferenceBlock">
+                                <mutation isObjectVar="true"></mutation>
+                                <field name="OBJECTTYPE">Player</field>
+                                <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                <value name="OBJECT">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">4</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <value name="IF2">
+                          <block type="GreaterThanEqualTo">
+                            <value name="VALUE-0">
+                              <block type="GetVariable">
+                                <value name="VALUE-0">
+                                  <block type="variableReferenceBlock">
+                                    <mutation isObjectVar="true"></mutation>
+                                    <field name="OBJECTTYPE">Player</field>
+                                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                    <value name="OBJECT">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">10</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO2">
+                          <block type="SetVariable">
+                            <value name="VALUE-0">
+                              <block type="variableReferenceBlock">
+                                <mutation isObjectVar="true"></mutation>
+                                <field name="OBJECTTYPE">Player</field>
+                                <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                <value name="OBJECT">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">3</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                        <value name="IF3">
+                          <block type="GreaterThanEqualTo">
+                            <value name="VALUE-0">
+                              <block type="GetVariable">
+                                <value name="VALUE-0">
+                                  <block type="variableReferenceBlock">
+                                    <mutation isObjectVar="true"></mutation>
+                                    <field name="OBJECTTYPE">Player</field>
+                                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                    <value name="OBJECT">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">5</field>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                        <statement name="DO3">
+                          <block type="SetVariable">
+                            <value name="VALUE-0">
+                              <block type="variableReferenceBlock">
+                                <mutation isObjectVar="true"></mutation>
+                                <field name="OBJECTTYPE">Player</field>
+                                <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                <value name="OBJECT">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Number">
+                                <field name="NUM">2</field>
+                              </block>
+                            </value>
+                          </block>
+                        </statement>
+                      </block>
+                    </statement>
+                    <next>
+                      <block type="ruleBlock">
+                        <mutation isOnGoingEvent="false"></mutation>
+                        <field name="NAME">addToKillStreak</field>
+                        <field name="EVENTTYPE">OnPlayerEarnedKill</field>
+                        <statement name="ACTIONS">
+                          <block type="SetVariable">
+                            <value name="VALUE-0">
+                              <block type="variableReferenceBlock">
+                                <mutation isObjectVar="true"></mutation>
+                                <field name="OBJECTTYPE">Player</field>
+                                <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                <value name="OBJECT">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                              </block>
+                            </value>
+                            <value name="VALUE-1">
+                              <block type="Add">
+                                <value name="VALUE-0">
+                                  <block type="GetVariable">
+                                    <value name="VALUE-0">
+                                      <block type="variableReferenceBlock">
+                                        <mutation isObjectVar="true"></mutation>
+                                        <field name="OBJECTTYPE">Player</field>
+                                        <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                                        <value name="OBJECT">
+                                          <block type="EventPlayer"></block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <value name="VALUE-1">
+                                  <block type="Number">
+                                    <field name="NUM">1</field>
+                                  </block>
+                                </value>
+                              </block>
+                            </value>
+                            <next>
+                              <block type="subroutineInstanceBlock">
+                                <field name="SUBROUTINE_NAME">updatePlayerStreakMessage</field>
+                              </block>
+                            </next>
+                          </block>
+                        </statement>
+                        <next>
+                          <block type="ruleBlock">
+                            <mutation isOnGoingEvent="true"></mutation>
+                            <field name="NAME">spotOutlaw</field>
+                            <field name="EVENTTYPE">Ongoing</field>
+                            <field name="OBJECTTYPE">Player</field>
+                            <statement name="CONDITIONS">
+                              <block type="conditionBlock">
+                                <value name="CONDITION">
+                                  <block type="Equals">
+                                    <value name="VALUE-0">
+                                      <block type="GetVariable">
+                                        <value name="VALUE-0">
+                                          <block type="variableReferenceBlock">
+                                            <mutation isObjectVar="true"></mutation>
+                                            <field name="OBJECTTYPE">Player</field>
+                                            <field name="VAR" id="tb76fgFxj|xFI[kECrAL" variabletype="Player">Outlaw</field>
+                                            <value name="OBJECT">
+                                              <block type="EventPlayer"></block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="VALUE-1">
+                                      <block type="Boolean">
+                                        <field name="BOOL">TRUE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                              </block>
+                            </statement>
+                            <statement name="ACTIONS">
+                              <block type="While">
+                                <value name="VALUE-0">
+                                  <block type="Equals">
+                                    <value name="VALUE-0">
+                                      <block type="GetVariable">
+                                        <value name="VALUE-0">
+                                          <block type="variableReferenceBlock">
+                                            <mutation isObjectVar="true"></mutation>
+                                            <field name="OBJECTTYPE">Player</field>
+                                            <field name="VAR" id="tb76fgFxj|xFI[kECrAL" variabletype="Player">Outlaw</field>
+                                            <value name="OBJECT">
+                                              <block type="EventPlayer"></block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <value name="VALUE-1">
+                                      <block type="Boolean">
+                                        <field name="BOOL">TRUE</field>
+                                      </block>
+                                    </value>
+                                  </block>
+                                </value>
+                                <statement name="DO">
+                                  <block type="SpotTarget">
+                                    <value name="VALUE-0">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                    <value name="VALUE-1">
+                                      <block type="Multiply">
+                                        <value name="VALUE-0">
+                                          <block type="GetVariable">
+                                            <value name="VALUE-0">
+                                              <block type="variableReferenceBlock">
+                                                <mutation isObjectVar="true"></mutation>
+                                                <field name="OBJECTTYPE">Player</field>
+                                                <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                                <value name="OBJECT">
+                                                  <block type="EventPlayer"></block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="VALUE-1">
+                                          <block type="Number">
+                                            <field name="NUM">2</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="Wait">
+                                        <value name="VALUE-0">
+                                          <block type="Number">
+                                            <field name="NUM">10</field>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                                <next>
+                                  <block type="UnspotTarget">
+                                    <value name="VALUE-0">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                  </block>
+                                </next>
+                              </block>
+                            </statement>
+                            <next>
+                              <block type="ruleBlock">
+                                <mutation isOnGoingEvent="false"></mutation>
+                                <field name="NAME">addPointsForKill</field>
+                                <field name="EVENTTYPE">OnPlayerEarnedKill</field>
+                                <statement name="ACTIONS">
+                                  <block type="SetGamemodeScore">
+                                    <value name="VALUE-0">
+                                      <block type="EventPlayer"></block>
+                                    </value>
+                                    <value name="VALUE-1">
+                                      <block type="Add">
+                                        <value name="VALUE-0">
+                                          <block type="GetGamemodeScore">
+                                            <value name="VALUE-0">
+                                              <block type="EventPlayer"></block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <value name="VALUE-1">
+                                          <block type="Multiply">
+                                            <value name="VALUE-0">
+                                              <block type="GetVariable">
+                                                <value name="VALUE-0">
+                                                  <block type="variableReferenceBlock">
+                                                    <mutation isObjectVar="true"></mutation>
+                                                    <field name="OBJECTTYPE">Player</field>
+                                                    <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                                    <value name="OBJECT">
+                                                      <block type="EventOtherPlayer"></block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="VALUE-1">
+                                              <block type="GetVariable">
+                                                <value name="VALUE-0">
+                                                  <block type="variableReferenceBlock">
+                                                    <mutation isObjectVar="false"></mutation>
+                                                    <field name="OBJECTTYPE">Global</field>
+                                                    <field name="VAR" id="DP.T-!KCfq2j7#_e@m=?" variabletype="Global">pointsPerKill</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                      </block>
+                                    </value>
+                                    <next>
+                                      <block type="If">
+                                        <value name="VALUE-0">
+                                          <block type="Equals">
+                                            <value name="VALUE-0">
+                                              <block type="GetVariable">
+                                                <value name="VALUE-0">
+                                                  <block type="variableReferenceBlock">
+                                                    <mutation isObjectVar="true"></mutation>
+                                                    <field name="OBJECTTYPE">Player</field>
+                                                    <field name="VAR" id="tb76fgFxj|xFI[kECrAL" variabletype="Player">Outlaw</field>
+                                                    <value name="OBJECT">
+                                                      <block type="EventOtherPlayer"></block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <value name="VALUE-1">
+                                              <block type="Boolean">
+                                                <field name="BOOL">TRUE</field>
+                                              </block>
+                                            </value>
+                                          </block>
+                                        </value>
+                                        <statement name="DO">
+                                          <block type="SetInventoryAmmo">
+                                            <value name="VALUE-0">
+                                              <block type="EventPlayer"></block>
+                                            </value>
+                                            <value name="VALUE-1">
+                                              <block type="InventorySlotsItem">
+                                                <field name="VALUE-0">InventorySlots</field>
+                                                <field name="VALUE-1">PrimaryWeapon</field>
+                                              </block>
+                                            </value>
+                                            <value name="VALUE-2">
+                                              <block type="Add">
+                                                <value name="VALUE-0">
+                                                  <block type="GetInventoryAmmo">
+                                                    <value name="VALUE-0">
+                                                      <block type="EventPlayer"></block>
+                                                    </value>
+                                                    <value name="VALUE-1">
+                                                      <block type="InventorySlotsItem">
+                                                        <field name="VALUE-0">InventorySlots</field>
+                                                        <field name="VALUE-1">PrimaryWeapon</field>
+                                                      </block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <value name="VALUE-1">
+                                                  <block type="Number">
+                                                    <field name="NUM">30</field>
+                                                  </block>
+                                                </value>
+                                              </block>
+                                            </value>
+                                            <next>
+                                              <block type="DisplayCustomNotificationMessage">
+                                                <value name="VALUE-0">
+                                                  <block type="Message">
+                                                    <value name="VALUE-0">
+                                                      <block type="Text">
+                                                        <field name="TEXT">{} claimed the bounty on {}</field>
+                                                      </block>
+                                                    </value>
+                                                    <value name="VALUE-1">
+                                                      <block type="EventPlayer"></block>
+                                                    </value>
+                                                    <value name="VALUE-2">
+                                                      <block type="EventOtherPlayer"></block>
+                                                    </value>
+                                                  </block>
+                                                </value>
+                                                <next>
+                                                  <block type="ShowHighlightedGameModeMessage">
+                                                    <value name="VALUE-0">
+                                                      <block type="Message">
+                                                        <value name="VALUE-0">
+                                                          <block type="Text">
+                                                            <field name="TEXT">You killed an outlaw.{} X bounty bonus!</field>
+                                                          </block>
+                                                        </value>
+                                                        <value name="VALUE-1">
+                                                          <block type="GetVariable">
+                                                            <value name="VALUE-0">
+                                                              <block type="variableReferenceBlock">
+                                                                <mutation isObjectVar="true"></mutation>
+                                                                <field name="OBJECTTYPE">Player</field>
+                                                                <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                                                <value name="OBJECT">
+                                                                  <block type="EventOtherPlayer"></block>
+                                                                </value>
+                                                              </block>
+                                                            </value>
+                                                          </block>
+                                                        </value>
+                                                      </block>
+                                                    </value>
+                                                    <value name="VALUE-1">
+                                                      <block type="EventPlayer"></block>
+                                                    </value>
+                                                  </block>
+                                                </next>
+                                              </block>
+                                            </next>
+                                          </block>
+                                        </statement>
+                                        <next>
+                                          <block type="subroutineInstanceBlock">
+                                            <field name="SUBROUTINE_NAME">checkWinCondition</field>
+                                          </block>
+                                        </next>
+                                      </block>
+                                    </next>
+                                  </block>
+                                </statement>
+                              </block>
+                            </next>
+                          </block>
+                        </next>
+                      </block>
+                    </next>
+                  </block>
+                </next>
+              </block>
+            </next>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="subroutineBlock" deletable="false" x="1406" y="2766">
+    <field name="SUBROUTINE_NAME">updatePlayerStreakMessage</field>
+    <statement name="ACTIONS">
+      <block type="DisplayCustomNotificationMessage">
+        <value name="VALUE-0">
+          <block type="Message">
+            <value name="VALUE-0">
+              <block type="Text">
+                <field name="TEXT">Current Kill Streak: {}</field>
+              </block>
+            </value>
+            <value name="VALUE-1">
+              <block type="GetVariable">
+                <value name="VALUE-0">
+                  <block type="variableReferenceBlock">
+                    <mutation isObjectVar="true"></mutation>
+                    <field name="OBJECTTYPE">Player</field>
+                    <field name="VAR" id="jnE8p@J*!Hhx1q[Ns2HB" variabletype="Player">killStreak</field>
+                    <value name="OBJECT">
+                      <block type="EventPlayer"></block>
+                    </value>
+                  </block>
+                </value>
+              </block>
+            </value>
+          </block>
+        </value>
+        <value name="VALUE-1">
+          <block type="CustomMessagesItem">
+            <field name="VALUE-0">CustomMessages</field>
+            <field name="VALUE-1">HeaderText</field>
+          </block>
+        </value>
+        <value name="VALUE-2">
+          <block type="Number">
+            <field name="NUM">-1</field>
+          </block>
+        </value>
+        <value name="VALUE-3">
+          <block type="EventPlayer"></block>
+        </value>
+        <next>
+          <block type="If">
+            <value name="VALUE-0">
+              <block type="Equals">
+                <value name="VALUE-0">
+                  <block type="GetVariable">
+                    <value name="VALUE-0">
+                      <block type="variableReferenceBlock">
+                        <mutation isObjectVar="true"></mutation>
+                        <field name="OBJECTTYPE">Player</field>
+                        <field name="VAR" id="tb76fgFxj|xFI[kECrAL" variabletype="Player">Outlaw</field>
+                        <value name="OBJECT">
+                          <block type="EventPlayer"></block>
+                        </value>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="VALUE-1">
+                  <block type="Boolean">
+                    <field name="BOOL">TRUE</field>
+                  </block>
+                </value>
+              </block>
+            </value>
+            <statement name="DO">
+              <block type="DisplayCustomNotificationMessage">
+                <value name="VALUE-0">
+                  <block type="Message">
+                    <value name="VALUE-0">
+                      <block type="Text">
+                        <field name="TEXT">YOU ARE AN OUTLAW!</field>
+                      </block>
+                    </value>
+                  </block>
+                </value>
+                <value name="VALUE-1">
+                  <block type="CustomMessagesItem">
+                    <field name="VALUE-0">CustomMessages</field>
+                    <field name="VALUE-1">MessageText1</field>
+                  </block>
+                </value>
+                <value name="VALUE-2">
+                  <block type="Number">
+                    <field name="NUM">-1</field>
+                  </block>
+                </value>
+                <value name="VALUE-3">
+                  <block type="EventPlayer"></block>
+                </value>
+                <next>
+                  <block type="DisplayCustomNotificationMessage">
+                    <value name="VALUE-0">
+                      <block type="Message">
+                        <value name="VALUE-0">
+                          <block type="Text">
+                            <field name="TEXT">Bounty on your head is multiplied by {}</field>
+                          </block>
+                        </value>
+                        <value name="VALUE-1">
+                          <block type="GetVariable">
+                            <value name="VALUE-0">
+                              <block type="variableReferenceBlock">
+                                <mutation isObjectVar="true"></mutation>
+                                <field name="OBJECTTYPE">Player</field>
+                                <field name="VAR" id="GmDEH{2[t3E;,=/dbLE/" variabletype="Player">bountyMultiplier</field>
+                                <value name="OBJECT">
+                                  <block type="EventPlayer"></block>
+                                </value>
+                              </block>
+                            </value>
+                          </block>
+                        </value>
+                      </block>
+                    </value>
+                    <value name="VALUE-1">
+                      <block type="CustomMessagesItem">
+                        <field name="VALUE-0">CustomMessages</field>
+                        <field name="VALUE-1">MessageText2</field>
+                      </block>
+                    </value>
+                    <value name="VALUE-2">
+                      <block type="Number">
+                        <field name="NUM">-1</field>
+                      </block>
+                    </value>
+                    <value name="VALUE-3">
+                      <block type="EventPlayer"></block>
+                    </value>
+                  </block>
+                </next>
+              </block>
+            </statement>
+          </block>
+        </next>
+      </block>
+    </statement>
+  </block>
+  <block type="subroutineBlock" deletable="false" x="1410" y="3259">
+    <field name="SUBROUTINE_NAME">checkWinCondition</field>
+    <statement name="CONDITIONS">
+      <block type="conditionBlock">
+        <value name="CONDITION">
+          <block type="GreaterThanEqualTo">
+            <value name="VALUE-0">
+              <block type="GetGamemodeScore">
+                <value name="VALUE-0">
+                  <block type="EventPlayer"></block>
+                </value>
+              </block>
+            </value>
+            <value name="VALUE-1">
+              <block type="GetTargetScore"></block>
+            </value>
+          </block>
+        </value>
+      </block>
+    </statement>
+    <statement name="ACTIONS">
+      <block type="EndRound">
+        <value name="VALUE-0">
+          <block type="EventPlayer"></block>
+        </value>
+      </block>
+    </statement>
+  </block>
+</xml>
